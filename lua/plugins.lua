@@ -1,4 +1,6 @@
 return {
+  -- Neovim setup documentation
+  { "folke/neodev.nvim", opts = {} },
   -- Coloscheme
   {
     "catppuccin/nvim",

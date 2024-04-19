@@ -23,3 +23,13 @@ require('mason-lspconfig').setup({
     lsp_zero.default_setup,
   },
 })
+
+require('lspconfig').lua_ls.setup {
+  settings = {
+    Lua = {
+      workspace = {
+        checkThirdParty = false,
+      },
+    },
+  },
+}

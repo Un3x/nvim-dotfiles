@@ -42,6 +42,14 @@ Map('n', '<leader>fg', builtin.live_grep, {})
 Map('n', '<leader>fb', builtin.buffers, {})
 Map('n', '<leader>fh', builtin.help_tags, {})
 
+vim.keymap.set("n", "<leader>fn", function()
+  require("noice").cmd("telescope")
+end)
+
+vim.keymap.set("n", "<leader>nd", function()
+  require("noice").cmd("dismiss")
+end)
+
 -- LSP
 
 Map("n", "<leader>gd", ":lua vim.lsp.buf.definition()<CR>")

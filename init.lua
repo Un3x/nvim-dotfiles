@@ -1,21 +1,21 @@
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 
-require("./config/lazy-config")
+require("config.lazy-config")
 require("plugins")
 require("autocmd")
 require("keymaps")
 require("options")
 
-require("./config/noice-config")
-require("./config/bufferline-config")
-require("./config/illuminate-config")
-require("./config/lsp-config")
-require("./config/copilot-config")
-require("./config/flit-config")
-require("./config/treesitter-config")
-require("./config/telescope-config")
-require("./config/cmp-config")
+require("config.noice-config")
+require("config.bufferline-config")
+require("config.illuminate-config")
+require("config.lsp-config")
+require("config.copilot-config")
+require("config.flit-config")
+require("config.treesitter-config")
+require("config.telescope-config")
+require("config.cmp-config")
 
 vim.cmd[[colorscheme catppuccin]]
 

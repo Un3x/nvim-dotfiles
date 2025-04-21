@@ -9,13 +9,14 @@ end)
 require('mason').setup({})
 
 require('mason-lspconfig').setup({
+  -- Mason-lspconfig uses lspconfig server names, not Mason package names
   ensure_installed = {
     'intelephense',
     'html',
     'solargraph',
     'sqlls',
     'jsonls',
-    'tsserver',
+    'ts_ls',  -- typescript server is called ts_ls in mason-lspconfig, not tsserver
     'cssls',
     'yamlls'
   },

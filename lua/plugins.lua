@@ -2,10 +2,10 @@ return {
   -- Neovim setup documentation
   { "folke/neodev.nvim", opts = {} },
 
-  -- Coloscheme
+  -- Colorscheme
   {
-    "catppuccin/nvim",
-    name = "catppuccin",
+    "folke/tokyonight.nvim",
+    lazy = false,
     priority = 1000
   },
 

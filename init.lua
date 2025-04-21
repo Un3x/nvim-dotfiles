@@ -17,7 +17,8 @@ require("config.treesitter-config")
 require("config.telescope-config")
 require("config.cmp-config")
 
-vim.cmd[[colorscheme catppuccin]]
+require("config.tokyonight-config")
+vim.cmd[[colorscheme tokyonight]]
 
 -- disable netrw at the very start of your init.lua
 vim.g.loaded_netrw = 1

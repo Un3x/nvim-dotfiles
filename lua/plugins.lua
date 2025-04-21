@@ -275,4 +275,216 @@ return {
       },
     },
   },
+  
+  -- Indent guides
+  {
+    "lukas-reineke/indent-blankline.nvim",
+    event = "BufReadPost",
+    main = "ibl",
+    opts = {
+      indent = {
+        char = "│",
+        tab_char = "│",
+      },
+      scope = { enabled = false },
+      exclude = {
+        filetypes = {
+          "help",
+          "alpha",
+          "dashboard",
+          "neo-tree",
+          "Trouble",
+          "trouble",
+          "lazy",
+          "mason",
+          "notify",
+          "toggleterm",
+          "lazyterm",
+        },
+      },
+    },
+  },
+  
+  -- Autopairs
+  {
+    "windwp/nvim-autopairs",
+    event = "InsertEnter",
+    config = function()
+      require("nvim-autopairs").setup({
+        check_ts = true,
+        ts_config = {
+          lua = { "string", "source" },
+          javascript = { "string", "template_string" },
+        },
+        disable_filetype = { "TelescopePrompt", "spectre_panel" },
+        fast_wrap = {
+          map = "<M-e>",
+          chars = { "{", "[", "(", '"', "'" },
+          pattern = string.gsub([[ [%'%"%)%>%]%)%}%,] ]], "%s+", ""),
+          offset = 0,
+          end_key = "$",
+          keys = "qwertyuiopzxcvbnmasdfghjkl",
+          check_comma = true,
+          highlight = "PmenuSel",
+          highlight_grey = "LineNr",
+        },
+      })
+    end,
+  },
+  
+  -- Comments
+  {
+    "numToStr/Comment.nvim",
+    keys = { 
+      { "gc", mode = { "n", "v" } },
+      { "gb", mode = { "n", "v" } },
+    },
+    opts = {},
+  },
+  
+  -- Status line
+  {
+    "nvim-lualine/lualine.nvim",
+    event = "VeryLazy",
+    dependencies = { "nvim-tree/nvim-web-devicons" },
+    config = function()
+      require("lualine").setup({
+        options = {
+          theme = "tokyonight",
+          component_separators = { left = "│", right = "│" },
+          section_separators = { left = "", right = "" },
+          globalstatus = true,
+        },
+        sections = {
+          lualine_a = { "mode" },
+          lualine_b = { "branch", "diff", "diagnostics" },
+          lualine_c = { { "filename", path = 1 } },
+          lualine_x = { "encoding", "fileformat", "filetype" },
+          lualine_y = { "progress" },
+          lualine_z = { "location" }
+        },
+        extensions = { "nvim-tree", "fugitive" }
+      })
+    end,
+  },
+  
+  -- Better diagnostics UI
+  {
+    "folke/trouble.nvim",
+    cmd = { "TroubleToggle", "Trouble" },
+    opts = {
+      position = "bottom",
+      icons = true,
+      auto_close = true,
+      auto_preview = true,
+      mode = "workspace_diagnostics",
+      use_diagnostic_signs = true,
+    },
+    keys = {
+      { "<leader>xx", "<cmd>TroubleToggle document_diagnostics<cr>", desc = "Document Diagnostics" },
+      { "<leader>xX", "<cmd>TroubleToggle workspace_diagnostics<cr>", desc = "Workspace Diagnostics" },
+      { "<leader>xL", "<cmd>TroubleToggle loclist<cr>", desc = "Location List" },
+      { "<leader>xQ", "<cmd>TroubleToggle quickfix<cr>", desc = "Quickfix List" },
+    },
+  },
+  
+  -- Project management
+  {
+    "ahmedkhalf/project.nvim",
+    event = "VeryLazy",
+    config = function()
+      require("project_nvim").setup({
+        detection_methods = { "pattern", "lsp" },
+        patterns = { ".git", "_darcs", ".hg", ".bzr", ".svn", "Makefile", "package.json", "Cargo.toml" },
+        show_hidden = false,
+        silent_chdir = true,
+      })
+      
+      -- Add telescope integration
+      require("telescope").load_extension("projects")
+    end,
+    keys = {
+      { "<leader>fp", "<cmd>Telescope projects<cr>", desc = "Projects" },
+    },
+  },
+  
+  -- Treesitter text objects and enhanced selection
+  {
+    "nvim-treesitter/nvim-treesitter-textobjects",
+    dependencies = "nvim-treesitter/nvim-treesitter",
+    event = "BufReadPost",
+    config = function()
+      require("nvim-treesitter.configs").setup({
+        textobjects = {
+          select = {
+            enable = true,
+            lookahead = true,
+            keymaps = {
+              ["af"] = "@function.outer",
+              ["if"] = "@function.inner",
+              ["ac"] = "@class.outer",
+              ["ic"] = "@class.inner",
+              ["aa"] = "@parameter.outer",
+              ["ia"] = "@parameter.inner",
+            },
+          },
+          move = {
+            enable = true,
+            set_jumps = true,
+            goto_next_start = {
+              ["]f"] = "@function.outer",
+              ["]c"] = "@class.outer",
+            },
+            goto_next_end = {
+              ["]F"] = "@function.outer",
+              ["]C"] = "@class.outer",
+            },
+            goto_previous_start = {
+              ["[f"] = "@function.outer",
+              ["[c"] = "@class.outer",
+            },
+            goto_previous_end = {
+              ["[F"] = "@function.outer",
+              ["[C"] = "@class.outer",
+            },
+          },
+        },
+      })
+    end,
+  },
+  
+  -- Better UI elements
+  {
+    "stevearc/dressing.nvim",
+    event = "VeryLazy",
+    opts = {
+      input = {
+        enabled = true,
+        default_prompt = "➤ ",
+        win_options = {
+          winblend = 0,
+        },
+      },
+      select = {
+        enabled = true,
+        backend = { "telescope", "fzf", "builtin" },
+        telescope = require('telescope.themes').get_dropdown({}),
+      },
+    },
+  },
+  {
+    "NvChad/nvim-colorizer.lua",
+    event = "BufReadPost",
+    opts = {
+      user_default_options = {
+        RGB = true,
+        RRGGBB = true,
+        names = false,
+        RRGGBBAA = true,
+        css = true,
+        css_fn = true,
+        tailwind = true,
+      },
+    },
+  },
 }

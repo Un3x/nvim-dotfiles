@@ -5,6 +5,13 @@ vim.g.maplocalleader = ' '
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
 
+-- Add file type association for yml files
+vim.filetype.add({
+  extension = {
+    yml = "yaml",
+  },
+})
+
 -- Core setup
 require("config.lazy-config")
 require("plugins")
